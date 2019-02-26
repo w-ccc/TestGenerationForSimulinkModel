@@ -1,9 +1,9 @@
-import pairwisetesting.PairwiseTestingToolkit;
-import pairwisetesting.coredomain.*;
-import pairwisetesting.engine.am.AMEngine;
-import pairwisetesting.testcasesgenerator.TXTTestCasesGenerator;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by wendy on 2019/1/8.
@@ -34,43 +34,43 @@ public class CTM {
         return testCases;
     }
 
-    public void pairWise() {
-        List<String> portName = new ArrayList<>();
-        PairwiseTestingToolkit toolkit = new PairwiseTestingToolkit();
-        for (Map.Entry<String, Set<Double>> entry: classificationTree.entrySet()) {
-            portName.add(entry.getKey());
-        }
-        toolkit.setMetaParameterProvider(new IMetaParameterProvider() {
-            public MetaParameter get() {
-                MetaParameter mp = new MetaParameter(2);
-                for (Map.Entry<String, Set<Double>> entry: classificationTree.entrySet()) {
-                    Factor factor = new Factor(entry.getKey());
-                    for (Double candidate : entry.getValue()) {
-                        factor.addLevel(candidate.toString());
-                    }
-                    mp.addFactor(factor);
-                }
-                return mp;
-            }
-        });
-        toolkit.setEngine(new AMEngine());
-        toolkit.setTestCasesGenerator(new TXTTestCasesGenerator());
-        try {
-            String[][] result = toolkit.generateTestData();
-            for (int i = 0; i < result.length; i++) {
-                Map<String, Double> testCase = new HashMap<>();
-                for (int j = 0; j <result[i].length; j++) {
-                    testCase.put(portName.get(j), Double.valueOf(result[i][j]));
-                }
-                testCases.add(testCase);
-            }
-            //System.out.println(toolkit.generateTestCases());
-        } catch (MetaParameterException e) {
-            e.printStackTrace();
-        } catch (EngineException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void pairWise() {
+//        List<String> portName = new ArrayList<>();
+//        PairwiseTestingToolkit toolkit = new PairwiseTestingToolkit();
+//        for (Map.Entry<String, Set<Double>> entry: classificationTree.entrySet()) {
+//            portName.add(entry.getKey());
+//        }
+//        toolkit.setMetaParameterProvider(new IMetaParameterProvider() {
+//            public MetaParameter get() {
+//                MetaParameter mp = new MetaParameter(2);
+//                for (Map.Entry<String, Set<Double>> entry: classificationTree.entrySet()) {
+//                    Factor factor = new Factor(entry.getKey());
+//                    for (Double candidate : entry.getValue()) {
+//                        factor.addLevel(candidate.toString());
+//                    }
+//                    mp.addFactor(factor);
+//                }
+//                return mp;
+//            }
+//        });
+//        toolkit.setEngine(new AMEngine());
+//        toolkit.setTestCasesGenerator(new TXTTestCasesGenerator());
+//        try {
+//            String[][] result = toolkit.generateTestData();
+//            for (int i = 0; i < result.length; i++) {
+//                Map<String, Double> testCase = new HashMap<>();
+//                for (int j = 0; j <result[i].length; j++) {
+//                    testCase.put(portName.get(j), Double.valueOf(result[i][j]));
+//                }
+//                testCases.add(testCase);
+//            }
+//            //System.out.println(toolkit.generateTestCases());
+//        } catch (MetaParameterException e) {
+//            e.printStackTrace();
+//        } catch (EngineException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void nWise(int n) {
         /*Map<String, Set<Double>> orederedCT = new HashMap<>();
@@ -87,7 +87,6 @@ public class CTM {
             portName.add(entry.getKey());
         }*/
         int i, j, k, m;
-        //全排列
         List<String> keySet = new ArrayList<>();
         List<Set<Double>> valueSet = new ArrayList<>();
         for (Map.Entry<String, Set<Double>> entry : classificationTree.entrySet()) {
@@ -97,7 +96,6 @@ public class CTM {
         m = keySet.size();
         Double[][] allPair = getFullCombination(valueSet);
         System.out.println(allPair.length);
-        //n元素结对
         int[][] nPairPattern = getMPairPattern(n, m);
         //n-wise
         List<List<Double>> resultValues = new ArrayList<>();
@@ -181,7 +179,7 @@ public class CTM {
             int tempN = candidateArray.size();
             for(k = 0; k < tempN; k++) {
                 List<Integer> list = candidateArray.get(k);
-                List<Integer> temp = new ArrayList(list);
+                List<Integer> temp = new ArrayList<Integer>(list);
                 temp.add(i);
                 if(temp.size() == n) {
                     for(j = 0; j < n; j++) {
