@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="run_simulink">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/run_simulink.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
