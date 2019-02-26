@@ -39,8 +39,8 @@ public class LoadFile {
             System.out.println("InPorts:" + inPorts);
             //System.out.println("OutPorts:" + outPorts);
             // render a block or model as PNG image
-            SimulinkBlockRenderer simulinkBlockRenderer = new SimulinkBlockRenderer();
-            BufferedImage image = simulinkBlockRenderer.renderBlock(model);
+//            SimulinkBlockRenderer simulinkBlockRenderer = new SimulinkBlockRenderer();
+            BufferedImage image = SimulinkBlockRenderer.renderBlock(model);
             ImageIO.write(image, "PNG", new File(file.getPath() + ".png"));
         }
         return inPorts;
