@@ -130,9 +130,9 @@ public class ParameterTestUI extends JFrame {
 					for (String in_port : in_ports) {
 						System.out.println("in_port:" + in_port);
 						TreeSet<Double> set = new TreeSet<Double>();
-						set.add(new Double(random.nextInt()));
-						set.add(new Double(random.nextInt()));
-						set.add(new Double(random.nextInt()));
+						set.add(new Double(random.nextInt(10)));
+						set.add(new Double(random.nextInt(10)));
+						set.add(new Double(random.nextInt(10)));
 						classificationTree.put(in_port, set);
 						comboBox.addItem(in_port);
 					}
