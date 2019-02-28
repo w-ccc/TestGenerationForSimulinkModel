@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -304,5 +305,12 @@ public class ParameterTestUI extends JFrame {
 		btnNewButton_1.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNewButton_1.setBounds(246, 253, 167, 29);
 		contentPane.add(btnNewButton_1);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CTM ctm = new CTM(classificationTree);
+				List<Map<String, Double>> tests = ctm.nWise(2);
+			}
+		});
 	}
 }

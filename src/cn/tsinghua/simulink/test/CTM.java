@@ -1,5 +1,8 @@
+package cn.tsinghua.simulink.test;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,33 +11,29 @@ import java.util.Set;
  * Created by wendy on 2019/1/8.
  */
 public class CTM {
-	private Map<String, Set<Double>> classificationTree = new HashMap<>();
-	private List<Map<String, Double>> testCases = new ArrayList<>();
-
-//	public CTM(Set<String> inPorts) {
-//		for (String portName : inPorts) {
-//			classificationTree.put(portName, getCandidate());
-//		}
-//	}
 	
+	private Map<String, Set<Double>> classificationTree = new HashMap<>();
+
 	public CTM(Map<String, Set<Double>> classificationTree) {
 		classificationTree.putAll(classificationTree);
 	}
 
-//    private Set<Double> getCandidate() {
-//        Set<Double> candidate = new HashSet<>();
-//        int num =(int)(Math.random() * 19);
-//        candidate.add(0.0);
-//        candidate.add(1.0);
-//        //candidate.add(100.0);
-//        for (int i = 0; i < num; i++) {
-//            candidate.add(100.0 + i * 30);
-//        }
-//        return candidate;
-//    }
+	public CTM(Set<String> inPorts) {
+		for (String portName : inPorts) {
+			classificationTree.put(portName, getCandidate());
+		}
+	}
 
-	public List<Map<String, Double>> getTestCases() {
-		return testCases;
+	private Set<Double> getCandidate() {
+		Set<Double> candidate = new HashSet<>();
+		int num = (int) (Math.random() * 19);
+		candidate.add(0.0);
+		candidate.add(1.0);
+		// candidate.add(100.0);
+		for (int i = 0; i < num; i++) {
+			candidate.add(100.0 + i * 30);
+		}
+		return candidate;
 	}
 
 //    public void pairWise() {
@@ -75,7 +74,7 @@ public class CTM {
 //        }
 //    }
 
-	public void nWise(int n) {
+	public List<Map<String, Double>> nWise(int n) {
 		/*
 		 * Map<String, Set<Double>> orederedCT = new HashMap<>(); List<String> portName
 		 * = new ArrayList<>(); List<Map.Entry<String,Set<Double>>> list = new
@@ -87,6 +86,7 @@ public class CTM {
 		 * orederedCT.put(entry.getKey(), entry.getValue());
 		 * portName.add(entry.getKey()); }
 		 */
+		List<Map<String, Double>> testCases = new ArrayList<>();
 		int i, j, k, m;
 		List<String> keySet = new ArrayList<>();
 		List<Set<Double>> valueSet = new ArrayList<>();
@@ -138,6 +138,7 @@ public class CTM {
 			}
 			testCases.add(temp);
 		}
+		return testCases;
 	}
 
 	private boolean equal(Double[] a, List<Double> b) {
