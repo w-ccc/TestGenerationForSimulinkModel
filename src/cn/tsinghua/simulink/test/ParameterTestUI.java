@@ -185,7 +185,7 @@ public class ParameterTestUI extends JFrame {
 //					System.out.println("e.getLastIndex():" + e.getLastIndex());
 					Double val = myJlist.getSelectedValue();
 //					System.out.println("selected index:" + val);
-					textField.setText(val + "");
+					value_text_field.setText(val + "");
 					selected_index = myJlist.getSelectedIndex();
 				}
 //				System.out.println(e);
@@ -233,7 +233,7 @@ public class ParameterTestUI extends JFrame {
 				if (selected_input_port != null) {
 					if (selected_index > -1) {
 						try {
-							double d = Double.parseDouble(textField.getText());
+							double d = Double.parseDouble(value_text_field.getText());
 							Set<Double> vals = classificationTree.get(selected_input_port);
 							if (!vals.contains(d)) {
 								vals.remove(listModel.getElementAt(selected_index));
@@ -283,7 +283,7 @@ public class ParameterTestUI extends JFrame {
 				if (selected_input_port != null) {
 					Set<Double> vals = classificationTree.get(selected_input_port);
 					try {
-						double d = Double.parseDouble(textField.getText());
+						double d = Double.parseDouble(value_text_field.getText());
 						if (!vals.contains(d)) {
 							vals.add(d);
 							listModel.addElement(d);
