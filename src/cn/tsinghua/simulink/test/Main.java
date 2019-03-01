@@ -1,9 +1,6 @@
 package cn.tsinghua.simulink.test;
 import Extractor.LoadFile;
-import com.mathworks.toolbox.javabuilder.*;
 import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
-import run_simulink.Matlab;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -19,11 +16,12 @@ public class Main {
             e.printStackTrace();
         }
         CTM ctm = new CTM(inPorts);
-        ctm.nWise(2);
         //ctm.pairWise();
-        List<Map<String, Double>> testCases = ctm.getTestCases();//TODO: store in excel
+        if (inPorts.isEmpty())
+            return;
+        List<Map<String, Double>> testCases = ctm.nWise(2);//TODO: store in excel
         System.out.println(testCases.size() + " " + testCases);
-        Matlab rs = null;
+        /*Matlab rs = null;
         try {
             rs = new Matlab();
             for (Map<String, Double> testCase : testCases) {
@@ -33,6 +31,11 @@ public class Main {
                 break;
             }
         } catch (MWException e) {
+            e.printStackTrace();
+        }*/
+        try {
+            RunSimulink.main(args);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
