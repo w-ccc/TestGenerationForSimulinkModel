@@ -1,5 +1,6 @@
 package cn.tsinghua.simulink.test;
 import Extractor.LoadFile;
+import Extractor.ParameterType;
 import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
 import java.io.IOException;
 import java.util.*;
@@ -7,7 +8,7 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        Set<String> inPorts = new HashSet<>();
+        Map<String, ParameterType> inPorts = new HashMap<>();
         try {
             inPorts = LoadFile.load(args);
         } catch (SimulinkModelBuildingException e) {
@@ -15,7 +16,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        CTM ctm = new CTM(inPorts);
+        CTM ctm = new CTM();
+        ctm.initCT(inPorts);
         //ctm.pairWise();
         if (inPorts.isEmpty())
             return;

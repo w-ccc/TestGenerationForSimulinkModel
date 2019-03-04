@@ -1,5 +1,7 @@
 package cn.tsinghua.simulink.test;
 
+import Extractor.ParameterType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,20 +20,44 @@ public class CTM {
 		classificationTree.putAll(classificationTree);
 	}
 
-	public CTM(Set<String> inPorts) {
-		for (String portName : inPorts) {
-			classificationTree.put(portName, getCandidate());
+	public CTM() {
+	}
+
+	public void initCT(Map<String, ParameterType> inPorts) {
+		for (Map.Entry<String, ParameterType> inport : inPorts.entrySet()) {
+			classificationTree.put(inport.getKey(), getCandidate(inport.getValue()));
 		}
 	}
 
-	private Set<Double> getCandidate() {
+	private Set<Double> getCandidate(ParameterType parameterType) {
 		Set<Double> candidate = new HashSet<>();
-		int num = (int) (Math.random() * 19);
-		candidate.add(0.0);
-		candidate.add(1.0);
-		// candidate.add(100.0);
-		for (int i = 0; i < num; i++) {
-			candidate.add(100.0 + i * 30);
+		int num = (int) (Math.random() * 21);
+		ParameterType.TypeID typeID = parameterType.getTypeID();
+		double min = parameterType.getMin();
+		double max = parameterType.getMax();
+		if (typeID == ParameterType.TypeID.Boolean) {
+			candidate.add(0.0);
+			candidate.add(1.0);
+		} else {
+			if (min == Double.MIN_VALUE || max == Double.MAX_VALUE) {
+				for (int i = 0; i < num; i++) {
+					candidate.add(100.0 + i * 30);
+				}
+			} else {
+				double step = (max - min) / num;
+				if (!(typeID == ParameterType.TypeID.Double || typeID == ParameterType.TypeID.Single || typeID == ParameterType.TypeID.NoType)) {
+					step = (int)step;
+					min = (int)min;
+					if (step == 0)
+						step = 1;
+				}
+				for (int i = 0; i < num; i++) {
+					if (min + i * step > max) {
+						continue;
+					}
+					candidate.add(min + i * step);
+				}
+			}
 		}
 		return candidate;
 	}
