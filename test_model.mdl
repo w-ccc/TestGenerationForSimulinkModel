@@ -3,7 +3,32 @@ Model {
   Version		  9.2
   SavedCharacterEncoding  "GBK"
   GraphicalInterface {
-    NumRootInports	    0
+    NumRootInports	    3
+    Inport {
+      Name		      "flag"
+      BusObject		      ""
+      DisplayName	      ""
+      OutputFunctionCall      "off"
+      SampleTime	      "-1"
+      UnitExpr		      "inherit"
+      DataTypeExpr	      "boolean"
+      ComplexityExpr	      "0"
+    }
+    Inport {
+      Name		      "x"
+      BusObject		      ""
+      OutputFunctionCall      "off"
+      SampleTime	      "-1"
+      UnitExpr		      "inherit"
+      DataTypeExpr	      "double"
+    }
+    Inport {
+      Name		      "y"
+      BusObject		      ""
+      OutputFunctionCall      "off"
+      SampleTime	      "-1"
+      UnitExpr		      "inherit"
+    }
     NumRootOutports	    2
     Outport {
       Name		      "Out1"
@@ -18,7 +43,7 @@ Model {
       UnitExpr		      "inherit"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.2"
+    ComputedModelVersion    "1.5"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -116,9 +141,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "wendy"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Dec 04 09:30:57 2018"
-  RTWModifiedTimeStamp	  465323308
-  ModelVersionFormat	  "1.%<AutoIncrement:2>"
+  LastModifiedDate	  "Fri Mar 01 11:16:41 2019"
+  RTWModifiedTimeStamp	  473339796
+  ModelVersionFormat	  "1.%<AutoIncrement:5>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -176,7 +201,7 @@ Model {
     $ObjectID		    7
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "test_model"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -996,29 +1021,31 @@ Model {
   }
   BlockParameterDefaults {
     Block {
-      BlockType		      DiscretePulseGenerator
-      PulseType		      "Sample based"
-      TimeSource	      "Use simulation time"
-      Amplitude		      "1"
-      Period		      "2"
-      PulseWidth	      "1"
-      PhaseDelay	      "0"
-      SampleTime	      "1"
-      VectorParams1D	      on
-    }
-    Block {
-      BlockType		      Gain
-      Gain		      "1"
-      Multiplication	      "Element-wise(K.*u)"
-      ParamMin		      "[]"
-      ParamMax		      "[]"
-      ParamDataTypeStr	      "Inherit: Same as input"
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
       OutMin		      "[]"
       OutMax		      "[]"
-      OutDataTypeStr	      "Inherit: Same as input"
+      OutDataTypeStr	      "Inherit: auto"
       LockScale		      off
-      RndMeth		      "Floor"
-      SaturateOnIntegerOverflow	on
+      BusOutputAsStruct	      off
+      Unit		      "inherit"
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Logic
+      Operator		      "AND"
+      Inputs		      "2"
+      IconShape		      "rectangular"
+      AllPortsSameDT	      on
+      OutDataTypeStr	      "Inherit: Logical (see Configuration Parameters: Optimization)"
       SampleTime	      "-1"
     }
     Block {
@@ -1071,6 +1098,22 @@ Model {
       IgnoreStateLimitsAndResetForLinearization	off
       ShowOutput	      "both"
     }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      AccumDataTypeStr	      "Inherit: Inherit via internal rule"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
   }
   System {
     Name		    "test_model"
@@ -1091,24 +1134,46 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "7"
+    SIDHighWatermark	    "13"
     Block {
-      BlockType		      Gain
-      Name		      "Gain"
-      SID		      "2"
-      Position		      [300, 345, 330, 375]
-      ZOrder		      2
-      Gain		      "2"
-      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
-      OutDataTypeStr	      "Inherit: Inherit via internal rule"
-      SaturateOnIntegerOverflow	off
+      BlockType		      Inport
+      Name		      "flag"
+      SID		      "8"
+      Position		      [105, 308, 135, 322]
+      ZOrder		      8
+      ShowName		      off
+      IconDisplay	      "Signal name"
+      OutDataTypeStr	      "boolean"
+    }
+    Block {
+      BlockType		      Inport
+      Name		      "x"
+      SID		      "9"
+      Position		      [105, 388, 135, 402]
+      ZOrder		      9
+      Port		      "2"
+      IconDisplay	      "Port number"
+      OutMin		      "0.1"
+      OutMax		      "5"
+      OutDataTypeStr	      "double"
+    }
+    Block {
+      BlockType		      Inport
+      Name		      "y"
+      SID		      "10"
+      Position		      [180, 388, 210, 402]
+      ZOrder		      10
+      Port		      "3"
+      IconDisplay	      "Port number"
+      OutMin		      "0.1"
+      OutMax		      "10"
     }
     Block {
       BlockType		      SecondOrderIntegrator
       Name		      "Integrator,\nSecond-Order\nLimited"
       SID		      "4"
       Ports		      [1, 2]
-      Position		      [390, 340, 440, 380]
+      Position		      [415, 340, 465, 380]
       ZOrder		      4
       LimitX		      on
       UpperLimitX	      "1"
@@ -1116,15 +1181,28 @@ Model {
       LimitDXDT		      on
     }
     Block {
-      BlockType		      DiscretePulseGenerator
-      Name		      "Pulse\nGenerator"
-      SID		      "1"
-      Ports		      [0, 1]
-      Position		      [185, 344, 215, 376]
-      ZOrder		      1
-      PulseType		      "Time based"
-      Period		      "10"
-      PulseWidth	      "5"
+      BlockType		      Logic
+      Name		      "Logical\nOperator"
+      SID		      "13"
+      Ports		      [2, 1]
+      Position		      [180, 342, 210, 373]
+      ZOrder		      13
+      AllPortsSameDT	      off
+      OutDataTypeStr	      "boolean"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "Sum"
+      SID		      "11"
+      Ports		      [2, 1]
+      Position		      [245, 350, 265, 370]
+      ZOrder		      11
+      ShowName		      off
+      IconShape		      "round"
+      Inputs		      "|++"
+      InputSameDT	      off
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Outport
@@ -1159,33 +1237,34 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true),extmgr.Configuration('Visuals','Time Domain',true,'SerializedDisplays',{struct('Mi"
-      "nYLimReal','-0.125','MaxYLimReal','1.125','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','1.125','LegendVis"
-      "ibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.68627450980"
-      "3922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039215686 0.623529411764"
-      "706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.0745098039215686;0.717647058823"
-      "529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title','%<SignalLabel>',"
-      "'LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',1,'LineNames',{{'Integrator, Second-Order L"
-      "imited/1'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLimReal','-0.125','MaxYLimR"
-      "eal','1.125','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','1.125','LegendVisibility','off','XGrid',true,'"
-      "YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.6862"
-      "74509803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;1 1 0.066"
-      "6666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.831372549019608 0.0745098039215686;0.058"
-      "8235294117647 1 1;1 0.0745098039215686 0.650980392156863])),extmgr.Configuration('Tools','Plot Navigation',true)"
-      ",extmgr.Configuration('Tools','Measurements',true,'Version','2018b')),'Version','2018b','Position',[820.2 192.2 "
-      "560 420])"
+      "nYLimReal','-1.00000','MaxYLimReal','1.00000','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','1.00000','Leg"
+      "endVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.68627"
+      "4509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039215686 0.623529"
+      "411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.0745098039215686;0.717647"
+      "058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title','%<SignalLa"
+      "bel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',1,'LineNames',{{'Integrator, Second-O"
+      "rder Limited/1'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLimReal','-1.00000','"
+      "MaxYLimReal','1.00000','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','1.00000','LegendVisibility','off','X"
+      "Grid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.6862745098"
+      "03922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.160784313725"
+      "49;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.831372549019608 0.0745098039"
+      "215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),extmgr.Configuration('Tools','Plot Navig"
+      "ation',true),extmgr.Configuration('Tools','Measurements',true,'Version','2018b')),'Version','2018b','Position',["
+      "820.2 192.2 560 420])"
       NumInputPorts	      "1"
       Floating		      off
     }
     Line {
-      ZOrder		      2
-      SrcBlock		      "Pulse\nGenerator"
+      ZOrder		      9
+      SrcBlock		      "flag"
       SrcPort		      1
-      DstBlock		      "Gain"
+      Points		      [18, 0; 0, 35]
+      DstBlock		      "Logical\nOperator"
       DstPort		      1
     }
     Line {
-      ZOrder		      5
-      SrcBlock		      "Gain"
+      ZOrder		      19
+      SrcBlock		      "Sum"
       SrcPort		      1
       DstBlock		      "Integrator,\nSecond-Order\nLimited"
       DstPort		      1
@@ -1203,6 +1282,29 @@ Model {
       SrcPort		      2
       DstBlock		      "Out2"
       DstPort		      1
+    }
+    Line {
+      ZOrder		      15
+      SrcBlock		      "x"
+      SrcPort		      1
+      Points		      [18, 0; 0, -30]
+      DstBlock		      "Logical\nOperator"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      12
+      SrcBlock		      "Logical\nOperator"
+      SrcPort		      1
+      DstBlock		      "Sum"
+      DstPort		      1
+    }
+    Line {
+      ZOrder		      13
+      SrcBlock		      "y"
+      SrcPort		      1
+      Points		      [40, 0]
+      DstBlock		      "Sum"
+      DstPort		      2
     }
   }
 }
