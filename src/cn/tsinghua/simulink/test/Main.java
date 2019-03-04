@@ -36,7 +36,7 @@ public class Main {
             e.printStackTrace();
         }*/
         try {
-            RunSimulink.main(args);
+            RunSimulink.main(args, testCases);
         } catch (Exception e) {
             e.printStackTrace();
         }
