@@ -25,6 +25,7 @@ public class CTM {
 
 	public void initCT(Map<String, ParameterType> inPorts) {
 		for (Map.Entry<String, ParameterType> inport : inPorts.entrySet()) {
+			System.out.println("inport.getKey():" + inport.getKey());
 			classificationTree.put(inport.getKey(), getCandidate(inport.getValue()));
 		}
 	}
@@ -59,6 +60,7 @@ public class CTM {
 				}
 			}
 		}
+		System.out.println(candidate.size());
 		return candidate;
 	}
 

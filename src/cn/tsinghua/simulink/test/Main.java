@@ -21,7 +21,7 @@ public class Main {
         //ctm.pairWise();
         if (inPorts.isEmpty())
             return;
-        List<Map<String, Double>> testCases = ctm.nWise(2);//TODO: store in excel
+        List<Map<String, Double>> testCases = ctm.nWise(3);//TODO: store in excel
         System.out.println(testCases.size() + " " + testCases);
         /*Matlab rs = null;
         try {
@@ -36,7 +36,7 @@ public class Main {
             e.printStackTrace();
         }*/
         try {
-            RunSimulink.main(args, testCases);
+//            RunSimulink.main(args, testCases);
         } catch (Exception e) {
             e.printStackTrace();
         }

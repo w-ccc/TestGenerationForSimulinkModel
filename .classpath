@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="simulink/lib/opentest4j-1.0.0.jar"/>
 	<classpathentry kind="lib" path="simulink/lib/simulink.jar"/>
 	<classpathentry kind="lib" path="lib/engine.jar"/>
+	<classpathentry kind="lib" path="lib/javacsv.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

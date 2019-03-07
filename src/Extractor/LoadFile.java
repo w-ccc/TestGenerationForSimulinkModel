@@ -1,15 +1,19 @@
 package Extractor;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.conqat.lib.commons.logging.SimpleLogger;
 import org.conqat.lib.simulink.builder.SimulinkModelBuilder;
 import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
 import org.conqat.lib.simulink.model.SimulinkBlock;
 import org.conqat.lib.simulink.model.SimulinkModel;
+import org.conqat.lib.simulink.util.SimulinkBlockRenderer;
 
 public class LoadFile {
 
@@ -42,10 +46,18 @@ public class LoadFile {
 			// System.out.println("OutPorts:" + outPorts);
 			// render a block or model as PNG image
 //            SimulinkBlockRenderer simulinkBlockRenderer = new SimulinkBlockRenderer();
-			//BufferedImage image = SimulinkBlockRenderer.renderBlock(model);
-			//ImageIO.write(image, "PNG", new File(file.getPath() + ".png"));
+			BufferedImage image = SimulinkBlockRenderer.renderBlock(model);
+			ImageIO.write(image, "PNG", new File(file.getPath() + ".png"));
 		}
 		return inPorts;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			LoadFile.LoadFromFile(new File("test_model.mdl"));
+		} catch (SimulinkModelBuildingException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

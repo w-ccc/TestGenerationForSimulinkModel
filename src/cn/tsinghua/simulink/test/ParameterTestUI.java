@@ -40,6 +40,7 @@ import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
 
 import Extractor.LoadFile;
 import Extractor.ParameterType;
+import Extractor.TestCaseCSVUtil;
 
 public class ParameterTestUI extends JFrame {
 
@@ -48,6 +49,8 @@ public class ParameterTestUI extends JFrame {
 	 */
 	private static final long serialVersionUID = -4512747330948525628L;
 
+	private String filename = "";
+	
 	private JPanel contentPane;
 	private JComboBox<String> comboBox;
 	private JTextField textField;
@@ -124,6 +127,7 @@ public class ParameterTestUI extends JFrame {
 				jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				jfc.showDialog(new JLabel(), "Choose");
 				File file = jfc.getSelectedFile();
+				filename = file.getName();
 				textField.setText(file.getAbsolutePath());
 				try {
 					classificationTree.clear();
@@ -313,6 +317,7 @@ public class ParameterTestUI extends JFrame {
 				CTM ctm = new CTM(classificationTree);
 				List<Map<String, Double>> tests = ctm.nWise(2);
 				System.out.println("tests.size():" + tests.size());
+				TestCaseCSVUtil.WriteTestCasesToCSV(filename.substring(0, filename.lastIndexOf('.')), tests);
 			}
 		});
 	}
