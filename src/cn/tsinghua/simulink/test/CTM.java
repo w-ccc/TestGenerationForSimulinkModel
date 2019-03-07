@@ -17,7 +17,7 @@ public class CTM {
 	private Map<String, Set<Double>> classificationTree = new HashMap<>();
 
 	public CTM(Map<String, Set<Double>> classificationTree) {
-		classificationTree.putAll(classificationTree);
+		this.classificationTree.putAll(classificationTree);
 	}
 
 	public CTM() {
