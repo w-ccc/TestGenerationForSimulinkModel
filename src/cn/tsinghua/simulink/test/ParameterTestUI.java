@@ -39,6 +39,7 @@ import javax.swing.filechooser.FileFilter;
 import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
 
 import Extractor.LoadFile;
+import Extractor.ParameterType;
 
 public class ParameterTestUI extends JFrame {
 
@@ -127,7 +128,8 @@ public class ParameterTestUI extends JFrame {
 				try {
 					classificationTree.clear();
 					comboBox.removeAllItems();
-					Set<String> in_ports = LoadFile.LoadFromFile(file);
+					Map<String, ParameterType> in_ports_types = LoadFile.LoadFromFile(file);
+					Set<String> in_ports = in_ports_types.keySet();
 					for (String in_port : in_ports) {
 						System.out.println("in_port:" + in_port);
 						TreeSet<Double> set = new TreeSet<Double>();
@@ -310,6 +312,7 @@ public class ParameterTestUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				CTM ctm = new CTM(classificationTree);
 				List<Map<String, Double>> tests = ctm.nWise(2);
+				System.out.println("tests.size():" + tests.size());
 			}
 		});
 	}

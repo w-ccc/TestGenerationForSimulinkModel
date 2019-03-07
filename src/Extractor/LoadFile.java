@@ -1,18 +1,15 @@
 package Extractor;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
-
-import javax.imageio.ImageIO;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.conqat.lib.commons.logging.SimpleLogger;
 import org.conqat.lib.simulink.builder.SimulinkModelBuilder;
 import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
 import org.conqat.lib.simulink.model.SimulinkBlock;
 import org.conqat.lib.simulink.model.SimulinkModel;
-import org.conqat.lib.simulink.util.SimulinkBlockRenderer;
 
 public class LoadFile {
 
@@ -24,7 +21,7 @@ public class LoadFile {
 	public static Map<String, ParameterType> LoadFromFile(File file) throws SimulinkModelBuildingException, IOException {
 		Map<String, ParameterType> inPorts = new HashMap<>();
 		// ArrayList<String> inPorts = new ArrayList<String>();
-		ArrayList<String> outPorts = new ArrayList<String>();
+//		ArrayList<String> outPorts = new ArrayList<String>();
 		try (SimulinkModelBuilder builder = new SimulinkModelBuilder(file, new SimpleLogger())) {
 			SimulinkModel model = builder.buildModel();
 
