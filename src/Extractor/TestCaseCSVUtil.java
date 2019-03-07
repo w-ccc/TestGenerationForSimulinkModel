@@ -36,7 +36,7 @@ public class TestCaseCSVUtil {
 					csvWriter.writeRecord(datas);
 				}
 				csvWriter.close();
-				JOptionPane.showMessageDialog(null, "Test is generated into:" + csvFile.getAbsolutePath());
+				JOptionPane.showMessageDialog(null, "Test cases:" + csvFile.getAbsolutePath());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
