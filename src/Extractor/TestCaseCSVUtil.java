@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,15 @@ public class TestCaseCSVUtil {
 				String csvFilePath = model_name + ".csv";
 				File csvFile = new File(csvFilePath);
 				CsvWriter csvWriter = new CsvWriter(csvFilePath, ',', Charset.forName("UTF-8"));
-				String[] headers = (String[]) test_case.keySet().toArray();
+				Set<String> tcs = test_case.keySet();
+				String[] headers = new String[tcs.size()];
+				int hi = 0;
+				Iterator<String> hc_itr = tcs.iterator();
+				while (hc_itr.hasNext()) {
+					String tc = hc_itr.next();
+					headers[hi] = tc;
+					hi++;
+				}
 //				String[] headers = { "FileName", "FileSize", "FileMD5" };
 				csvWriter.writeRecord(headers);
 				Iterator<Map<String, Double>> tc_itr = test_cases.iterator();
