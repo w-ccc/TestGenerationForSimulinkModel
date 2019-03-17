@@ -257,4 +257,93 @@ public class CTM {
 		}
 		return result;
 	}
+
+	public List<Map<String, Double>> newNWise(int n) {
+		//List<Map<String, Double>> result = new ArrayList<>();//record n-wise result
+		List<List<Map<String, Double>>> tempResult = new ArrayList<>();//record 1 to n wise
+		List<Map<String, Double>> lastN1 = new ArrayList<>();
+		List<Map<String, Double>> lastN = new ArrayList<>();
+		int m = classificationTree.size();
+		int i = 0;
+		if (m < n)
+			n = m;
+		//to cal n-wise in m elements, we should cal n-wise in m-1 elements and (n-1)-wise in m-1 elements first
+		for (Map.Entry<String, Set<Double>> entry : classificationTree.entrySet()) {
+			lastN.clear();
+			lastN1.clear();
+			if (i == 0) {
+				List<Map<String, Double>> testcases = new ArrayList<>();
+				for (Double candidate : entry.getValue()) {
+					Map<String, Double> testcase = new HashMap<>();
+					testcase.put(entry.getKey(), candidate);
+					testcases.add(testcase);
+				}
+				tempResult.add(testcases);
+			} else {
+				for (int j = 0; /*j < m - i && */j < n && j <= i; j++) {
+					lastN1 = lastN;
+					//for (Map<String, Double> testcase : tempResult.get(j)) {
+					//	lastN.add(new HashMap<>(testcase));
+					//}
+					if (j < i)
+						lastN = new ArrayList<>(tempResult.get(j));
+					if (j == 0 && i <= m - n) {
+						//cal 1-wise
+						int k = 0;
+						for (Double candidate : entry.getValue()) {
+							int testcaseN = tempResult.get(j).size();
+							if (k < testcaseN) {
+								Map<String, Double> testcase = new HashMap<>(tempResult.get(j).get(k));
+								testcase.put(entry.getKey(), candidate);
+								tempResult.get(j).remove(k);
+								tempResult.get(j).add(k, testcase);
+							} else {
+								Map<String, Double> testcase = new HashMap<>(tempResult.get(j).get(testcaseN - 1));
+								testcase.put(entry.getKey(), candidate);
+								tempResult.get(j).add(k, testcase);
+							}
+							k++;
+						}
+					} else if (j == i) {
+						//cal n-wise in n elements from (n-1)-wise in n-1 elements
+						List<Map<String, Double>> cartProduct = new ArrayList<>();
+						for (Double candidate : entry.getValue()) {
+							for (Map<String, Double> testcase : lastN1) {
+								Map<String, Double> newTestcase = new HashMap<>(testcase);
+								newTestcase.put(entry.getKey(), candidate);
+								cartProduct.add(newTestcase);
+							}
+						}
+						tempResult.add(j, cartProduct);
+					} else if (j >= i - m + n) {
+						//cal n-wise in m elements from n-wise in m-1 elements and (n-1)-wise in m-1 elements
+						List<Map<String, Double>> DValue = new ArrayList<>();
+						for (Map<String, Double> testcase : lastN) {
+							if (!lastN1.contains(testcase)) {
+								DValue.add(testcase);
+							}
+						}
+						if (DValue.isEmpty()) {
+							DValue = lastN;
+						}
+						List<Map<String, Double>> cartProduct = new ArrayList<>();
+						for (Double candidate : entry.getValue()) {
+							//DValue X candidate
+							for (Map<String, Double> testcase : DValue) {
+								Map<String, Double> newTestcase = new HashMap<>(testcase);
+								newTestcase.put(entry.getKey(), candidate);
+								cartProduct.add(newTestcase);
+							}
+							DValue = lastN1;
+						}
+						tempResult.remove(j);
+						tempResult.add(j,cartProduct);
+					}
+				}
+			}
+			i++;
+		}
+		return tempResult.get(n-1);
+	}
+
 }

@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="javabuilder">
+  <library name="engine">
     <CLASSES>
-      <root url="jar://D:/Matlab/toolbox/javabuilder/jar/javabuilder.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/engine.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

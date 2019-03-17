@@ -21,7 +21,8 @@ public class Main {
         //ctm.pairWise();
         if (inPorts.isEmpty())
             return;
-        List<Map<String, Double>> testCases = ctm.nWise(2);//TODO: store in excel
+        //List<Map<String, Double>> testCases = ctm.nWise(2);//TODO: store in excel
+        List<Map<String, Double>> testCases = ctm.newNWise(2);
         System.out.println(testCases.size() + " " + testCases);
         /*Matlab rs = null;
         try {

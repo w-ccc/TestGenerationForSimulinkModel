@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="run_simulink">
+  <library name="javacsv">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/run_simulink.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javacsv.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
