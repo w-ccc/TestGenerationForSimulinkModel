@@ -290,8 +290,9 @@ public class CTM {
 					if (j == 0 && i <= m - n) {
 						//cal 1-wise
 						int k = 0;
+						int testcaseN = tempResult.get(j).size();
+						Double lastCandidate = 0.0;
 						for (Double candidate : entry.getValue()) {
-							int testcaseN = tempResult.get(j).size();
 							if (k < testcaseN) {
 								Map<String, Double> testcase = new HashMap<>(tempResult.get(j).get(k));
 								testcase.put(entry.getKey(), candidate);
@@ -302,6 +303,14 @@ public class CTM {
 								testcase.put(entry.getKey(), candidate);
 								tempResult.get(j).add(k, testcase);
 							}
+							k++;
+							lastCandidate = candidate;
+						}
+						while (k < testcaseN) {
+							Map<String, Double> testcase = new HashMap<>(tempResult.get(j).get(k));
+							testcase.put(entry.getKey(),lastCandidate);
+							tempResult.get(j).remove(k);
+							tempResult.get(j).add(k, testcase);
 							k++;
 						}
 					} else if (j == i) {
