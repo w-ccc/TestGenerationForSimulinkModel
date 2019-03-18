@@ -36,7 +36,7 @@ public class CTM {
 	private Set<Double> getCandidate(ParameterType parameterType) {
 		Set<Double> candidate = new HashSet<>();
 //		int num = (int) (rand.nextInt(10));
-		int num = 3;
+		int num = 4;
 		ParameterType.TypeID typeID = parameterType.getTypeID();
 		double min = parameterType.getMin();
 		double max = parameterType.getMax();
