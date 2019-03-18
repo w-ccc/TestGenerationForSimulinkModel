@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -15,6 +16,9 @@ import java.util.Set;
 public class CTM {
 	
 	private Map<String, Set<Double>> classificationTree = new HashMap<>();
+	
+	// for inner testing.
+	private Random rand = new Random(10);
 
 	public CTM(Map<String, Set<Double>> classificationTree) {
 		this.classificationTree.putAll(classificationTree);
@@ -32,7 +36,7 @@ public class CTM {
 
 	private Set<Double> getCandidate(ParameterType parameterType) {
 		Set<Double> candidate = new HashSet<>();
-		int num = (int) (Math.random() * 21);
+		int num = (int) (rand.nextInt(10));
 		ParameterType.TypeID typeID = parameterType.getTypeID();
 		double min = parameterType.getMin();
 		double max = parameterType.getMax();
