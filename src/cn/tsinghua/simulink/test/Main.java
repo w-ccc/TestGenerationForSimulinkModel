@@ -23,7 +23,7 @@ public class Main {
             return;
         //List<Map<String, Double>> testCases = ctm.nWise(2);//TODO: store in excel
         List<Map<String, Double>> testCases = ctm.newNWise(2);
-        System.out.println(testCases.size() + " " + testCases);
+        System.out.println("testCases.size():" + testCases.size());
         /*Matlab rs = null;
         try {
             rs = new Matlab();
