@@ -55,6 +55,7 @@ public class ParameterTestUI extends JFrame {
 	private JComboBox<String> comboBox;
 	private JTextField textField;
 	private JTextField value_text_field;
+	private JTextField nwise_text_field;
 	private DefaultComboBoxModel<Double> listModel = new DefaultComboBoxModel<Double>(
 //			new String[] { "Value1", "Value2", "Value3", "Value4", "Value5", "Value6", "Value7", "Value8", "Value9", "Value10", "Value11" }
 	);
@@ -169,7 +170,7 @@ public class ParameterTestUI extends JFrame {
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(34, 99, 181, 167);
+		scrollPane.setBounds(34, 99, 181, 140);
 		contentPane.add(scrollPane);
 
 		JList<Double> myJlist = new JList<Double>();
@@ -311,11 +312,32 @@ public class ParameterTestUI extends JFrame {
 		btnNewButton_1.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnNewButton_1.setBounds(246, 253, 167, 29);
 		contentPane.add(btnNewButton_1);
+		
+		JLabel label = new JLabel("n-wise, n:");
+		label.setFont(new Font("Arial", Font.PLAIN, 14));
+		label.setBounds(34, 257, 67, 21);
+		contentPane.add(label);
+		
+		nwise_text_field = new JTextField();
+		nwise_text_field.setColumns(10);
+		nwise_text_field.setBounds(105, 258, 52, 21);
+		nwise_text_field.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				int keyChar = e.getKeyChar();
+				if ((keyChar >= KeyEvent.VK_0 && keyChar <= KeyEvent.VK_9)) {
+					// do nothing, use the default behavior of text field.
+				} else {
+					e.consume();
+				}
+			}
+		});
+		contentPane.add(nwise_text_field);
+		
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CTM ctm = new CTM(classificationTree);
-				List<Map<String, Double>> tests = ctm.nWise(2);
+				List<Map<String, Double>> tests = ctm.newNWise(Integer.parseInt(nwise_text_field.getText()));
 				System.out.println("tests.size():" + tests.size());
 				TestCaseCSVUtil.WriteTestCasesToCSV(filename.substring(0, filename.lastIndexOf('.')), tests);
 			}

@@ -8,6 +8,6 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="cn.tsinghua.simulink.test.Main"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="test_model.mdl"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="MHI_checked_logic.slx"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TestGenerationForSimulinkModel"/>
 </launchConfiguration>
