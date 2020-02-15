@@ -1,7 +1,9 @@
 package cn.tsinghua.simulink.test;
-import Extractor.LoadFile;
-import Extractor.ParameterType;
 import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
+
+import cn.tsinghua.simulink.extractor.LoadFile;
+import cn.tsinghua.simulink.extractor.ParameterType;
+
 import java.io.IOException;
 import java.util.*;
 

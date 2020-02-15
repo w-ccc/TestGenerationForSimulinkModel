@@ -38,9 +38,9 @@ import javax.swing.filechooser.FileFilter;
 
 import org.conqat.lib.simulink.builder.SimulinkModelBuildingException;
 
-import Extractor.LoadFile;
-import Extractor.ParameterType;
-import Extractor.TestCaseCSVUtil;
+import cn.tsinghua.simulink.extractor.LoadFile;
+import cn.tsinghua.simulink.extractor.ParameterType;
+import cn.tsinghua.simulink.extractor.TestCaseCSVUtil;
 
 public class ParameterTestUI extends JFrame {
 

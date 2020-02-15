@@ -1,4 +1,4 @@
-package Extractor;
+package cn.tsinghua.simulink.extractor;
 
 import java.io.File;
 import java.io.IOException;
