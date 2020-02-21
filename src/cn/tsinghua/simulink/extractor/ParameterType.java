@@ -39,14 +39,49 @@ public class ParameterType {
 			return TypeID.Int16;
 		case "int32":
 			return TypeID.Int32;
+		case "int64":
+			return TypeID.Int64;
 		case "uint8":
 			return TypeID.UInt8;
 		case "uint16":
 			return TypeID.UInt16;
 		case "uint32":
 			return TypeID.UInt32;
+		case "Inherit: auto":
+			return TypeID.Int8;
 		default:
+			System.err.println("Serious Error! Uncognized Type:" + type);
+			System.exit(1);
 			return TypeID.NoType;
+		}
+	}
+	
+	public String toTypeString() {
+		switch (typeID) {
+		case Boolean:
+			return "boolean";
+		case Double:
+			return "double";
+		case Single:
+			return "single";
+		case Int8:
+			return "int8";
+		case Int16:
+			return "int16";
+		case Int32:
+			return "int32";
+		case Int64:
+			return "int64";
+		case UInt8:
+			return "uint8";
+		case UInt16:
+			return "uint16";
+		case UInt32:
+			return "uint32";
+		case UInt64:
+			return "uint64";
+		default:
+			return "Serious Error! Uncognized type!";
 		}
 	}
 

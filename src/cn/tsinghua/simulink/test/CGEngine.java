@@ -48,6 +48,8 @@ public class CGEngine {
 				val = rg.GenerateRandomDouble()+"";
 				break;
 			default:
+				System.err.println("Serious error! Uncognized type:" + ei.GetParameterType().toTypeString());
+				System.exit(1);
 				break;
 			}
 			result.add("[-1, " + val + "]");
