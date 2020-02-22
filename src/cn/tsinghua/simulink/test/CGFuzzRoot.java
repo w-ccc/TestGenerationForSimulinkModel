@@ -19,11 +19,11 @@ public class CGFuzzRoot {
 		CGEngine cge = new CGEngine();
 		File file = new File(args[0]);
 		String model_name = args[0].substring(0, args[0].length() - 4);
-		long start_time = System.currentTimeMillis();
 		try {
 			RunSimulinkWithCoverage runner = new RunSimulinkWithCoverage(model_name);
 			runner.Initialize();
 			ArrayList<ExternalInput> inputs = LoadFile.loadExternalInput(file);
+			long start_time = System.currentTimeMillis();
 			while ((System.currentTimeMillis() - start_time) < a_time) {
 				ArrayList<String> values = cge.InitializeExternalInputsInRandom(inputs);
 				RunInfo info = runner.CoverageRun(values);
