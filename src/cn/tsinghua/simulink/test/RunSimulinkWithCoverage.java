@@ -9,10 +9,17 @@ import org.apache.commons.lang3.StringUtils;
 import com.mathworks.engine.MatlabEngine;
 
 public class RunSimulinkWithCoverage {
-
-	public static SeedKind CoverageRun(String model_name, List<String> input_port_values) throws Exception {
-		MatlabEngine eng = MatlabEngine.startMatlab();
-		Future<Void> fLoad = eng.evalAsync("load_system('" + model_name + "')");
+	
+	MatlabEngine eng = null;
+	String model_name = null;
+	
+	public RunSimulinkWithCoverage(String model_name) {
+		this.model_name = model_name;
+	}
+	
+	public void Initialize() throws Exception {
+		eng = MatlabEngine.startMatlab();
+		Future<Void> fLoad = eng.evalAsync("load_system('" + model_name + "');");
 		System.out.print("Loading Simulink Model...");
 		while (!fLoad.isDone()) {
 			System.out.print(".");
@@ -20,6 +27,9 @@ public class RunSimulinkWithCoverage {
 		}
 		System.out.println();
 		System.out.println("Simulink Model Loaded");
+	}
+
+	public RunInfo CoverageRun(List<String> input_port_values) throws Exception {
 		File all_cv_file = new File(model_name + "_cv.cvt");
 		if (all_cv_file.exists()) {
 			eng.eval("[a_tests, a_cvs] = cvload('" + model_name + "_cv');");
@@ -37,15 +47,19 @@ public class RunSimulinkWithCoverage {
 		}
 		eng.eval("after_all_cov = decisioninfo(after_all_cv, '" + model_name + "');");
 		eng.eval("after_all_cov_value = after_all_cov(1) / after_all_cov(2);");
-		SeedKind result = SeedKind.NotInterested;
+		SeedKind kind = SeedKind.NotInterested;
 		if (!all_cv_file.exists() || (all_cv_file.exists() && (double)eng.getVariable("all_cov_value") < (double)eng.getVariable("after_all_cov_value"))) {
 			// seed is interesting
-			result = SeedKind.Interesting;
+			eng.eval("all_cov_value = after_all_cov_value;");
+			kind = SeedKind.Interesting;
 		}
 		eng.eval("cvsave('" + model_name + "_cv', after_all_cv);");
-		eng.close();
 		System.out.println("Simulation Over");
-		return result;
+		return new RunInfo(kind, (double)eng.getVariable("all_cov_value"));
+	}
+	
+	public void Close() throws Exception {
+		eng.close();
 	}
 	
 }
